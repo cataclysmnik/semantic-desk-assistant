@@ -222,39 +222,49 @@ class Dashboard(QMainWindow):
         
         self.central_widget.setStyleSheet("""
             QWidget {
-                background-color: #F8F9FA;
-                font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+                background-color: #F5F5F5;
+                font-family: 'Consolas', 'Courier New', monospace;
             }
-            QLabel { color: #2D3436; }
-            QCheckBox { color: #2D3436; font-weight: bold; font-size: 13px; }
+            QLabel { color: #000000; }
+            QCheckBox { color: #000000; font-weight: bold; font-size: 13px; text-transform: uppercase; }
+            QCheckBox::indicator {
+                width: 16px;
+                height: 16px;
+                border: 2px solid #000000;
+                background-color: #FFFFFF;
+            }
+            QCheckBox::indicator:checked {
+                background-color: #E50000;
+            }
             QLineEdit, QComboBox {
                 padding: 8px 12px;
-                border: 1px solid #DFE6E9;
-                border-radius: 6px;
+                border: 2px solid #000000;
+                border-radius: 0px;
                 background-color: #FFFFFF;
                 font-size: 13px;
-                color: #2D3436;
+                color: #000000;
             }
-            QLineEdit:focus, QComboBox:focus { border: 1px solid #74B9FF; }
+            QLineEdit:focus, QComboBox:focus { border: 2px solid #E50000; }
             QPushButton {
                 padding: 8px 16px;
-                background-color: #0984E3;
+                background-color: #000000;
                 color: #FFFFFF;
-                border: none;
-                border-radius: 6px;
+                border: 2px solid #000000;
+                border-radius: 0px;
                 font-weight: bold;
                 font-size: 13px;
+                text-transform: uppercase;
             }
-            QPushButton:hover { background-color: #74B9FF; }
-            QPushButton:pressed { background-color: #005691; }
-            QPushButton:disabled { background-color: #B2BEC3; }
-            QPushButton#stopBtn { background-color: #D63031; }
-            QPushButton#stopBtn:hover { background-color: #FF7675; }
+            QPushButton:hover { background-color: #FFFFFF; color: #000000; }
+            QPushButton:pressed { background-color: #E50000; color: #FFFFFF; border: 2px solid #E50000; }
+            QPushButton:disabled { background-color: #CCCCCC; color: #666666; border: 2px solid #CCCCCC; }
+            QPushButton#stopBtn { background-color: #E50000; color: #FFFFFF; border: 2px solid #E50000; }
+            QPushButton#stopBtn:hover { background-color: #FFFFFF; color: #E50000; }
             QPlainTextEdit {
                 background-color: #FFFFFF;
-                color: #2D3436;
-                border: 1px solid #DFE6E9;
-                border-radius: 8px;
+                color: #000000;
+                border: 2px solid #000000;
+                border-radius: 0px;
                 padding: 8px;
                 font-size: 13px;
             }
@@ -264,10 +274,9 @@ class Dashboard(QMainWindow):
         main_layout.setContentsMargins(20, 20, 20, 20)
         main_layout.setSpacing(15)
 
-        title_label = QLabel("Semantic Desk Assistant")
-        title_font = QFont()
+        title_label = QLabel("SEMANTIC DESK ASSISTANT")
+        title_font = QFont("Arial Black")
         title_font.setPointSize(20)
-        title_font.setBold(True)
         title_label.setFont(title_font)
         main_layout.addWidget(title_label)
 
@@ -279,8 +288,8 @@ class Dashboard(QMainWindow):
         camera_layout = QVBoxLayout(camera_panel)
         camera_layout.setContentsMargins(0, 0, 10, 0)
 
-        cam_title = QLabel("Auto Capture + YOLO (10s)")
-        cam_title.setFont(QFont("Segoe UI", 14, QFont.Bold))
+        cam_title = QLabel("CAMERA FEED")
+        cam_title.setFont(QFont("Arial Black", 14))
         camera_layout.addWidget(cam_title)
 
         cam_controls = QHBoxLayout()
@@ -324,11 +333,11 @@ class Dashboard(QMainWindow):
         camera_layout.addWidget(self.capture_info_label)
 
         self.image_frame = QFrame()
-        self.image_frame.setStyleSheet("QFrame { background-color: #FFFFFF; border-radius: 10px; border: 1px solid #DFE6E9; }")
+        self.image_frame.setStyleSheet("QFrame { background-color: #FFFFFF; border: 2px solid #000000; }")
         shadow1 = QGraphicsDropShadowEffect()
-        shadow1.setBlurRadius(15)
-        shadow1.setColor(QColor(0, 0, 0, 15))
-        shadow1.setOffset(0, 3)
+        shadow1.setBlurRadius(0)
+        shadow1.setColor(QColor(0, 0, 0, 255))
+        shadow1.setOffset(6, 6)
         self.image_frame.setGraphicsEffect(shadow1)
 
         image_layout = QVBoxLayout(self.image_frame)
@@ -354,8 +363,8 @@ class Dashboard(QMainWindow):
         events_layout = QVBoxLayout(events_panel)
         events_layout.setContentsMargins(0,0,0,0)
 
-        events_title = QLabel("Events Log")
-        events_title.setFont(QFont("Segoe UI", 14, QFont.Bold))
+        events_title = QLabel("EVENTS LOG")
+        events_title.setFont(QFont("Arial Black", 14))
         events_layout.addWidget(events_title)
 
         self.events_output = QPlainTextEdit()
@@ -369,8 +378,8 @@ class Dashboard(QMainWindow):
         chat_layout = QVBoxLayout(chat_panel)
         chat_layout.setContentsMargins(0,0,0,0)
 
-        chat_title = QLabel("AI Vision Assistant")
-        chat_title.setFont(QFont("Segoe UI", 14, QFont.Bold))
+        chat_title = QLabel("AI VISION ASSISTANT")
+        chat_title.setFont(QFont("Arial Black", 14))
         chat_layout.addWidget(chat_title)
 
         self.chat_output = QPlainTextEdit()
@@ -399,8 +408,8 @@ class Dashboard(QMainWindow):
         objects_layout = QVBoxLayout(objects_panel)
         objects_layout.setContentsMargins(10, 0, 0, 0)
         
-        objects_title = QLabel("Current Objects")
-        objects_title.setFont(QFont("Segoe UI", 14, QFont.Bold))
+        objects_title = QLabel("CURRENT OBJECTS")
+        objects_title.setFont(QFont("Arial Black", 14))
         objects_layout.addWidget(objects_title)
         
         self.objects_table = QTableWidget(0, 2)
@@ -413,16 +422,19 @@ class Dashboard(QMainWindow):
         self.objects_table.setStyleSheet("""
             QTableWidget {
                 background-color: #FFFFFF;
-                border: 1px solid #DFE6E9;
-                border-radius: 8px;
+                border: 2px solid #000000;
+                border-radius: 0px;
                 font-size: 13px;
-                color: #2D3436;
+                color: #000000;
+                gridline-color: #000000;
             }
             QHeaderView::section {
-                background-color: #F1F2F6;
+                background-color: #000000;
+                color: #FFFFFF;
                 padding: 6px;
                 border: none;
-                border-bottom: 1px solid #DFE6E9;
+                border-bottom: 2px solid #000000;
+                border-right: 1px solid #FFFFFF;
                 font-weight: bold;
             }
         """)
