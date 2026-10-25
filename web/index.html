@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Desk Assistant // Nothing Monitor</title>
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="dot-matrix-bg"></div>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="glyph-beacon" id="connection-dot"></div>
+        <div class="brand-text">
+          <span class="brand-title">SEMANTIC DESK</span>
+          <span class="brand-sub" id="host-label">NOTHING (OS) MONITOR</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="nt-pill" id="live-indicator">
+          <span class="nt-dot"></span>
+          <span class="live-text">ONLINE</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Nothing OS Tab Switcher -->
+    <nav class="nt-tab-bar">
+      <button class="nt-tab-btn active" id="tab-btn-live">
+        <span class="nt-tab-dot"></span>
+        <span class="tab-text">[01] LIVE</span>
+      </button>
+      <button class="nt-tab-btn" id="tab-btn-history">
+        <span class="nt-tab-dot"></span>
+        <span class="tab-text">[02] SESSIONS</span>
+        <span class="nt-counter" id="history-counter">0</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content-scroll">
+      <!-- TAB 1: LIVE MONITOR -->
+      <div class="tab-pane active" id="pane-live">
+        <!-- Session Hero Card -->
+        <section class="card hero-card" id="session-card">
+          <div class="hero-header">
+            <span class="section-tag">[01] ACTIVE SESSION</span>
+            <span class="session-timer" id="session-timer">00:00:00</span>
+          </div>
+          <div class="hero-body">
+            <div class="session-badge-wrapper">
+              <h1 class="session-title dot-font" id="session-name">CONNECTING</h1>
+              <p class="session-description" id="session-desc">// Awaiting telemetry stream</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Productivity & Camera Split Grid -->
+        <section class="metrics-grid">
+          <!-- Productivity Score Card -->
+          <div class="card score-card">
+            <div class="card-header">
+              <span class="card-title">[02] PRODUCTIVITY</span>
+              <span class="nt-badge" id="grade-badge">—</span>
+            </div>
+            <div class="score-display">
+              <div class="gauge-wrapper">
+                <svg class="radial-gauge" viewBox="0 0 120 120">
+                  <circle class="gauge-bg" cx="60" cy="60" r="48" />
+                  <circle class="gauge-progress" id="gauge-bar" cx="60" cy="60" r="48" />
+                </svg>
+                <div class="gauge-inner">
+                  <span class="gauge-percent dot-font" id="score-val">0%</span>
+                  <span class="gauge-sub">FOCUS RATIO</span>
+                </div>
+              </div>
+              
+              <div class="time-breakdown">
+                <div class="breakdown-row">
+                  <span class="label"><span class="bullet work"></span>WORK</span>
+                  <span class="val" id="time-work">0m</span>
+                </div>
+                <div class="breakdown-row">
+                  <span class="label"><span class="bullet study"></span>STUDY</span>
+                  <span class="val" id="time-study">0m</span>
+                </div>
+                <div class="breakdown-row">
+                  <span class="label"><span class="bullet break"></span>BREAK</span>
+                  <span class="val" id="time-break">0m</span>
+                </div>
+                <div class="breakdown-row">
+                  <span class="label"><span class="bullet idle"></span>IDLE</span>
+                  <span class="val" id="time-idle">0m</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Camera Snapshot Card -->
+          <div class="card camera-card">
+            <div class="card-header">
+              <span class="card-title">[03] DESK FEED</span>
+              <span class="timestamp-tag" id="cam-timestamp">--:--:--</span>
+            </div>
+            <div class="cam-frame">
+              <img id="feed-img" src="/api/image" alt="Desk Camera View" onerror="this.style.opacity=0.3" onload="this.style.opacity=1">
+              <div class="feed-overlay">
+                <span class="feed-badge">ESP32-S3 // LIVE</span>
+                <button class="nt-icon-btn" id="refresh-img-btn" aria-label="Refresh Image" title="Refresh">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Detected Objects Section -->
+        <section class="card objects-card">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="card-title">[04] DETECTED OBJECTS</span>
+            </div>
+            <span class="nt-badge" id="object-count-badge">0 ITEMS</span>
+          </div>
+          <div class="objects-grid" id="objects-container">
+            <div class="empty-state">NO OBJECTS DETECTED</div>
+          </div>
+        </section>
+
+        <!-- Events Log Section -->
+        <section class="card events-card">
+          <div class="card-header">
+            <span class="card-title">[05] EVENTS LOG</span>
+            <span class="sync-tag" id="last-sync-tag">SYNCING...</span>
+          </div>
+          <div class="events-list" id="events-container">
+            <div class="empty-state">NO RECENT EVENTS</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- TAB 2: PREVIOUS SESSIONS -->
+      <div class="tab-pane" id="pane-history">
+        <!-- Summary Stats Card -->
+        <section class="card history-summary-card">
+          <div class="card-header">
+            <span class="card-title">[SUMMARY] SESSIONS OVERVIEW</span>
+            <span class="nt-badge" id="history-total-badge">0 RECORDED</span>
+          </div>
+          <div class="summary-stats-grid">
+            <div class="stat-box">
+              <span class="stat-num dot-font" id="stat-total-sessions">0</span>
+              <span class="stat-label">SESSIONS</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num dot-font" id="stat-focus-time">0m</span>
+              <span class="stat-label">FOCUS TIME</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num dot-font" id="stat-longest-session">0m</span>
+              <span class="stat-label">LONGEST</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Visual Timeline Strip Card -->
+        <section class="card timeline-strip-card">
+          <div class="card-header">
+            <span class="card-title">[CHRONO] TIMELINE BAR</span>
+            <span class="sync-tag">PAST &rarr; PRESENT</span>
+          </div>
+          <div class="timeline-bar-wrapper">
+            <div class="timeline-bar" id="timeline-strip">
+              <!-- Colored segments dynamically injected -->
+            </div>
+          </div>
+          <div class="timeline-legend">
+            <span class="legend-item"><span class="bullet work"></span>WORK</span>
+            <span class="legend-item"><span class="bullet study"></span>STUDY</span>
+            <span class="legend-item"><span class="bullet break"></span>BREAK</span>
+            <span class="legend-item"><span class="bullet idle"></span>IDLE</span>
+          </div>
+        </section>
+
+        <!-- Historical Sessions List -->
+        <section class="card sessions-archive-card">
+          <div class="card-header">
+            <span class="card-title">[ARCHIVE] PREVIOUS SESSIONS</span>
+            <span class="sync-tag">LATEST FIRST</span>
+          </div>
+          <div class="past-sessions-container" id="past-sessions-list">
+            <div class="empty-state">NO PREVIOUS SESSIONS RECORDED YET</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Bottom Status Bar -->
+    <footer class="bottom-bar">
+      <span class="status-tip">NOTHING (R) PROTOCOL</span>
+      <span class="ip-info" id="footer-ip">WI-FI STREAM</span>
+    </footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

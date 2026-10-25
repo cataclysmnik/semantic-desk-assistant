@@ -9,14 +9,15 @@ try:
         model_id, trust_remote_code=True, torch_dtype=torch.bfloat16
     ).to("cuda")
     
-    # Create dummy white image
-    image = Image.new('RGB', (800, 600), color = 'white')
+    # Load real desk image
+    image = Image.open("esp32_captures/raw/capture_20260818-183454.jpg").convert("RGB")
     
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
     print("Encoding image...")
     enc_image = model.encode_image(image)
     
     print("Answering...")
-    answer = model.answer_question(enc_image, "What is this?")
+    answer = model.answer_question(enc_image, "What objects are on this desk?", tokenizer=tokenizer)
     print("Answer:", answer)
 except Exception as e:
     import traceback
