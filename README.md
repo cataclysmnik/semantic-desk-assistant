@@ -1,27 +1,27 @@
-# Semantic Desk Assistant 🖥️🤖
+# Semantic Desk Assistant
 
 An intelligent, privacy-first, 100% offline smart workspace monitor and productivity assistant. It pairs an **ESP32 wireless edge camera** with a local **Vision-Language Model (moondream2)** to understand what is on your desk, track your activity sessions (Work, Study, Break, Idle), and provide interactive visual question answering (VQA) without sending any images or telemetry to the cloud.
 
 ---
 
-## ✨ Features
+## Features
 
-- **🔒 100% Offline & Private**: Runs entirely locally using `moondream2` (`transformers` + `torch`). Zero cloud calls, zero external API keys, zero visual data leaves your network.
-- **📷 Wireless IoT Edge Capture**: Automated snapshot polling over Wi-Fi HTTP from an ESP32-CAM or ESP32-S3 camera module.
-- **🧠 Semantic Scene Understanding**: Intelligently identifies visible desk items (laptops, phones, books, notebooks, mugs, stationery) using small multimodal language reasoning instead of static bounding box heuristics.
-- **📊 Automated Productivity & Session Tracking**:
+- **100% Offline & Private**: Runs entirely locally using `moondream2` (`transformers` + `torch`). Zero cloud calls, zero external API keys, zero visual data leaves your network.
+- **Wireless IoT Edge Capture**: Automated snapshot polling over Wi-Fi HTTP from an ESP32-CAM or ESP32-S3 camera module.
+- **Semantic Scene Understanding**: Intelligently identifies visible desk items (laptops, phones, books, notebooks, mugs, stationery) using small multimodal language reasoning instead of static bounding box heuristics.
+- **Automated Productivity & Session Tracking**:
   - **WORK**: Open laptop / computer / keyboard in active use.
   - **STUDY**: Books, notebooks, notepad, or documents on the desk.
   - **BREAK / IDLE**: Absence of work items or empty desk area.
   - Live session timers, duration counters, and chronological event logs.
-- **💬 Contextual Visual Q&A (VQA)**: Ask natural language questions about your workspace (e.g., *"Where did I put my phone?"*, *"Describe what I'm working on"*). The assistant leverages both the current camera frame and recent detection history.
-- **📱 Dual Dashboard Interfaces**:
+- **Contextual Visual Q&A (VQA)**: Ask natural language questions about your workspace (e.g., *"Where did I put my phone?"*, *"Describe what I'm working on"*). The assistant leverages both the current camera frame and recent detection history.
+- **Dual Dashboard Interfaces**:
   - **Desktop GUI**: Native PyQt5 application with real-time video feed, session timeline graph, detection feed, and chat panel.
   - **Mobile Web Monitor**: Built-in HTTP server broadcasting a responsive, cyberpunk-styled dashboard (`web/index.html`) accessible on local mobile devices or secondary displays.
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```text
 [ ESP32-CAM / ESP32-S3 ]
@@ -40,7 +40,7 @@ An intelligent, privacy-first, 100% offline smart workspace monitor and producti
 
 ---
 
-## 📦 Directory Structure
+## Directory Structure
 
 ```text
 semantic-desk-assistant/
@@ -61,7 +61,7 @@ semantic-desk-assistant/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Prerequisites
 
@@ -117,7 +117,7 @@ python dashboard.py
 
 ---
 
-## 🤖 Vision-Language Capabilities
+## Vision-Language Capabilities
 
 ### Offline Object Recognition
 The assistant queries the scene with focused prompts:
@@ -140,6 +140,6 @@ Question: Did I leave my coffee cup on the desk?
 
 ---
 
-## 🛡️ License
+## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
